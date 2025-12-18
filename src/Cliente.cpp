@@ -1,8 +1,7 @@
 #include "Cliente.h"
 #include <iostream>
-#include "funcionesDiseno.h"
+#include "FuncionesDiseno.h"
 #include <windows.h>
-#include <fstream>
 
 using namespace std;
 
@@ -34,10 +33,8 @@ void Cliente::agregarCliente(Cliente registroClientes[], int &totalClientes){
     if(dni.length() > 15) dni = dni.substr(0,15);
 
     gotoxy(10,11); cout << "Ingrese edad: ";
-    cin >> edad;
-	
-	cin.ignore();
-	
+    cin >> edad; cin.ignore();
+
     gotoxy(10,13); cout << "Ingrese correo: ";
     getline(cin, correo);
     if(correo.length() > 50) correo = correo.substr(0,50);
@@ -57,14 +54,5 @@ void Cliente::mostrarCliente(int y){
     gotoxy(col, y+2);   cout << "Edad:   " << edad;
     gotoxy(col, y+3);   cout << "ID:     " << id;
     gotoxy(col, y+4);   cout << "Correo: " << correo;
-}
-
-void Cliente::guardarEnArchivo(ofstream &archivo){
-    archivo << "Nombre: " << nombre << endl;
-    archivo << "DNI: " << dni << endl;
-    archivo << "Edad: " << edad << endl;
-    archivo << "ID: " << id << endl;
-    archivo << "Correo: " << correo << endl;
-    archivo << "-------------------------------" << endl;
 }
 

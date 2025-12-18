@@ -1,0 +1,12 @@
+Nombre: awar
+DNI: 61373548
+Edad: 20
+ID: 1
+Correo: cuekor
+-------------------------------
+Nombre: cielo
+DNI: 1
+Edad: 15
+ID: 2
+Correo: cieoo.hotmail.com
+-------------------------------
