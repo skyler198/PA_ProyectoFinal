@@ -21,9 +21,11 @@ public:
     void agregarDetalle(PedidoPersonalizado p);
     float calcularTotal();
     void mostrarPedido();
-    
+    void mostrarPedidoEnCuadro(int yInicio, int col);
     int getIdPedido();
     string getFecha();
+    void setDescuento(float d) { descuento = d; }
 };
+ 
 
 #endif
