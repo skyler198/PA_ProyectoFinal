@@ -1,6 +1,6 @@
 #include "Cliente.h"
 #include <iostream>
-#include "funcionesDiseno.h"
+#include "FuncionesDiseno.h"
 #include <windows.h>
 
 using namespace std;

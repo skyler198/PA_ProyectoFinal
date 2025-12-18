@@ -6,7 +6,7 @@
 #include "Pedido.h"
 #include "PedidoPersonalizado.h"
 #include "Vendedor.h"
-#include "funcionesDiseno.h"
+#include "FuncionesDiseno.h"
 
 using namespace std;
 
