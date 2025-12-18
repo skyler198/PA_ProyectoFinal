@@ -1,18 +1,14 @@
-#ifndef PERSONA_H
-#define PERSONA_H
+#ifndef CLIENTE_H
+#define CLIENTE_H
 
-#include<string>
-using namespace std;
-
-class Persona{
-	protected:
-		string nombre;
-		string dni;
-		int edad;
+#include"Persona.h"
+class Cliente: public Persona{
+	private:
+		int id;
+		string correo;
 	public:
-		Persona();
-		Persona(string nombre, string dni, int edad);
-		void mostrarPersona();
+		Cliente();
+		Cliente(string nombre, string dni, int edad, int id, string codigo);
 };
 
 #endif
