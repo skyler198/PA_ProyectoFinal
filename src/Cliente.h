@@ -1,6 +1,6 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
-
+#include <fstream>
 #include"Persona.h"
 class Cliente: public Persona{
 	private:
@@ -12,6 +12,7 @@ class Cliente: public Persona{
 		
 		void agregarCliente(Cliente registroClientes[], int &totalClientes);
 		void mostrarCliente(int y);
+		void guardarEnArchivo(ofstream &archivo);
 };
 
 #endif
