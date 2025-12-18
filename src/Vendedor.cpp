@@ -1,25 +1,62 @@
 //Vendedor.cpp
 #include "Vendedor.h"
+#include "funcionesDiseno.h" // para gotoxy, dibujarCuadro, centrar
 #include <iostream>
+#include <string>
 using namespace std;
 
-Vendedor::Vendedor() {}
+Vendedor::Vendedor(){}
 
-Vendedor::Vendedor(string nombre, string dni, int edad, string usuario, string contrasena, float sueldo)
-    : Persona(nombre, dni, edad) {
+Vendedor::Vendedor(string nombre, string dni, int edad,
+                   string usuario, string contrasena, float sueldo)
+    : Persona(nombre, dni, edad){
     this->usuario = usuario;
     this->contrasena = contrasena;
     this->sueldo = sueldo;
 }
 
-void Vendedor::emitirFactura() {
-    cout << "Factura emitida por el vendedor." << endl;
-}
+void Vendedor::emitirRecibo(Pedido &pedido, Cliente &cliente, int metodoPago, float pagoIngresado) {
+    system("cls");
+    system("COLOR E0");
 
-void Vendedor::recepcionarPedido(){
-	cout<<"Pedido recepcionado por el vendedor"<<endl;
+    // Dibujar cuadro de la factura
+    dibujarCuadro(5,2,75,25);
+
+    // Título
+    gotoxy(centrar(5,75,"RECIBO DE COMPRA"),3);
+    cout << "RECIBO DE COMPRA";
+
+    // Datos del cliente
+    cliente.mostrarCliente(5); // fila inicial dentro del cuadro
+
+    // Datos del pedido
+    int yPedido = 12; // fila para empezar a mostrar el pedido
+    gotoxy(centrar(5,75,"DETALLE DEL PEDIDO"), yPedido);
+    cout << "DETALLE DEL PEDIDO";
+
+    float total = pedido.calcularTotal();
+    int yTotales = 15;
+
+    if (metodoPago == 1) { // Efectivo
+        float vuelto = pagoIngresado - total;
+        gotoxy(10, yTotales); cout << "Metodo de pago: Efectivo";
+        gotoxy(10, yTotales+1); cout << "Monto entregado: S/ " << pagoIngresado;
+        gotoxy(10, yTotales+2); cout << "Vuelto: S/ " << vuelto;
+    } else if (metodoPago == 2) { // Tarjeta
+        float descuento = total * 0.01;
+        float totalConDescuento = total - descuento;
+        gotoxy(10, yTotales); cout << "Metodo de pago: Tarjeta";
+        gotoxy(10, yTotales+1); cout << "Monto ingresado: S/ " << pagoIngresado;
+        gotoxy(10, yTotales+2); cout << "Descuento aplicado (1%): S/ " << descuento;
+        gotoxy(10, yTotales+3); cout << "Total cobrado: S/ " << totalConDescuento;
+    }
+
+    gotoxy(centrar(5,75,"Gracias por su compra!"), 26);
+    cout << "Gracias por su compra!";
+    gotoxy(5,27); // mover cursor fuera del cuadro
+    system("pause");
 }
 
 void Vendedor::getRol(){
-	cout<<"rol: Vendedor"<<endl;
+    cout << "Rol del sistema: VENDEDOR" << endl;
 }

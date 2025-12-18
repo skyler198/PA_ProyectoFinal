@@ -1,11 +1,13 @@
 //Producto.cpp
 #include "Producto.h"
 #include <iostream>
+
 using namespace std;
 
-Producto::Producto() {}
+Producto::Producto(){}
 
-Producto::Producto(int codigo, string nombreComida, float precio, int stock, string descripcion) {
+Producto::Producto(int codigo, string nombreComida,
+                   float precio, int stock, string descripcion){
     this->codigo = codigo;
     this->nombreComida = nombreComida;
     this->precio = precio;
@@ -13,14 +15,17 @@ Producto::Producto(int codigo, string nombreComida, float precio, int stock, str
     this->descripcion = descripcion;
 }
 
-float Producto::getPrecio() {
+float Producto::getPrecio(){
     return precio;
 }
 
-string Producto::getNombre() {
+string Producto::getNombre(){
     return nombreComida;
 }
 
-void Producto::mostrarProducto() {
-    cout << nombreComida << " - S/ " << precio << endl;
+void Producto::mostrarProducto(){
+    cout << "[" << codigo << "] "
+         << nombreComida
+         << " | S/ " << precio
+         << " | Stock: " << stock << endl;
 }

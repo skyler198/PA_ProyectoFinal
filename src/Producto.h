@@ -15,7 +15,8 @@ private:
 
 public:
     Producto();
-    Producto(int codigo, string nombreComida, float precio, int stock, string descripcion);
+    Producto(int codigo, string nombreComida,
+             float precio, int stock, string descripcion);
 
     float getPrecio();
     string getNombre();
