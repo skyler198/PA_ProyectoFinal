@@ -143,21 +143,36 @@ int main() {
                         gotoxy(20,15); cout << "Cantidad: ";
                         int cantidad; cin >> cantidad; cin.ignore();
 
-                        for(int c=0; c<cantidad; c++){
-                            PedidoPersonalizado pp(productos[prodSel-1]);
-                            char opcionExtra = 'n';
-                            gotoxy(20,16); cout << "Agregar extra? (s/n): ";
-                            cin >> opcionExtra; cin.ignore();
-                            if(opcionExtra == 's' || opcionExtra == 'S'){
-                                for(int e=0; e<3; e++){
-                                    gotoxy(20,17+e); cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
-                                }
-                                gotoxy(20,20); cout << "Seleccione extra: ";
-                                int selExtra; cin >> selExtra; cin.ignore();
-                                pp.agregarOpcion(extras[selExtra-1]);
-                            }
-                            pedido.agregarDetalle(pp);
-                        }
+						for(int c=0; c<cantidad; c++){
+						    PedidoPersonalizado pp(productos[prodSel-1]);
+						    
+						    bool agregarMas = true;
+						    while(agregarMas){
+						        system("cls");
+						        dibujarCuadro(2,1,95,28); 
+						        gotoxy(25,6); cout << "SELECCIONE EXTRA PARA " << productos[prodSel-1].getNombre();
+						        
+						        int yExtra = 8;
+						        for(int e=0; e<3; e++){
+						            gotoxy(20,yExtra++); 
+						            cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
+						        }
+						
+						        gotoxy(20,12); cout << "Seleccione extra (0 para ninguno): ";
+						        int selExtra; cin >> selExtra; cin.ignore();
+						
+						        if(selExtra == 0){
+						            agregarMas = false; // sale del ciclo de extras
+						        } else {
+						            pp.agregarOpcion(extras[selExtra-1]);
+						            gotoxy(20,14); cout << "Desea agregar otro extra? (s/n): ";
+						            char resp; cin >> resp; cin.ignore();
+						            if(resp != 's' && resp != 'S') agregarMas = false;
+						        }
+						    }
+						
+						    pedido.agregarDetalle(pp);
+						}
 
                         gotoxy(20,22); cout << "Desea seguir pidiendo? (s/n): ";
                         cin >> seguir; cin.ignore();
