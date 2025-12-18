@@ -1,11 +1,11 @@
-#include "funcionesDiseno.h"
+#include "FuncionesDiseno.h"
 #include <windows.h>
 #include <iostream>
 #include <string.h>
 using namespace std;
 
 
-// Función para centrar texto dentro de cuadro
+// FunciÃ³n para centrar texto dentro de cuadro
 int centrar(int x1, int x2, string texto) {
     return x1 + (x2 - x1 - texto.length())/2;
 }

@@ -1,6 +1,6 @@
 //Pedido.cpp
 #include "Pedido.h"
-#include "funcionesDiseno.h" // para gotoxy y dibujarCuadro
+#include "FuncionesDiseno.h" // para gotoxy y dibujarCuadro
 #include <iostream>
 using namespace std;
 

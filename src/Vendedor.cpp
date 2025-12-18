@@ -1,6 +1,6 @@
 //Vendedor.cpp
 #include "Vendedor.h"
-#include "funcionesDiseno.h" // para gotoxy, dibujarCuadro, centrar
+#include "FuncionesDiseno.h" // para gotoxy, dibujarCuadro, centrar
 #include <iostream>
 #include <string>
 using namespace std;

@@ -1,6 +1,6 @@
 //PedidoPersonalizado.cpp
 #include "PedidoPersonalizado.h"
-#include "funcionesDiseno.h" // gotoxy
+#include "FuncionesDiseno.h" // gotoxy
 #include <iostream>
 using namespace std;
 
