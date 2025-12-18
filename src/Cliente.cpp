@@ -34,8 +34,10 @@ void Cliente::agregarCliente(Cliente registroClientes[], int &totalClientes){
     if(dni.length() > 15) dni = dni.substr(0,15);
 
     gotoxy(10,11); cout << "Ingrese edad: ";
-    cin >> edad; cin.ignore();
-
+    cin >> edad;
+	
+	cin.ignore();
+	
     gotoxy(10,13); cout << "Ingrese correo: ";
     getline(cin, correo);
     if(correo.length() > 50) correo = correo.substr(0,50);

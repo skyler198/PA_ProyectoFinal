@@ -25,10 +25,46 @@ void guardarClientesArchivo(Cliente registroClientes[], int totalClientes) {
     archivo.close();
 }
 
+void cargarClientesArchivo(Cliente registroClientes[], int &totalClientes) {
+    ifstream archivo("clientes.txt");
+    if (!archivo) return; // Si no existe, no hace nada
+
+    string linea, nombre, dni, correo;
+    int edad, id;
+    totalClientes = 0;
+
+    while (getline(archivo, linea)) {
+        if (linea.find("Nombre: ") == 0) {
+            nombre = linea.substr(8); // Extrae lo que está después de "Nombre: "
+        }
+        else if (linea.find("DNI: ") == 0) {
+            dni = linea.substr(5);
+        }
+        else if (linea.find("Edad: ") == 0) {
+            edad = stoi(linea.substr(6));
+        }
+        else if (linea.find("ID: ") == 0) {
+            id = stoi(linea.substr(4));
+        }
+        else if (linea.find("Correo: ") == 0) {
+            correo = linea.substr(8);
+
+            // Al llegar al correo, ya tenemos todos los datos, creamos el cliente
+            registroClientes[totalClientes] = Cliente(nombre, dni, edad, id, correo);
+            totalClientes++;
+        }
+    }
+
+    archivo.close();
+}
+
+
 int main() {
     Cliente registroClientes[50];
     int totalClientes = 0;
 
+	cargarClientesArchivo(registroClientes, totalClientes);
+	
     Producto productos[5] = {
         Producto(1, "Combo Familiar", 35.0, 10, "Pollo + Papas + Bebida"),
         Producto(2, "Combo Personal", 15.0, 20, "Pollo + Bebida"),
@@ -140,7 +176,7 @@ int main() {
                             idxCliente = i;
 
                     if(idxCliente == -1){
-                        gotoxy(20,16); cout << "Cliente no registrado. Registre primero.";
+                        gotoxy(20,16); cout << "Cliente no registrado. Registre primero";
                         gotoxy(20,18); system("pause");
                         break;
                     }
@@ -163,35 +199,42 @@ int main() {
                         gotoxy(20,15); cout << "Cantidad: ";
                         int cantidad; cin >> cantidad; cin.ignore();
 
-                        for(int c=0; c<cantidad; c++){
-                            PedidoPersonalizado pp(productos[prodSel-1]);
-                            bool agregarMas = true;
-                            while(agregarMas){
-                                system("cls");
-                                dibujarCuadro(2,1,95,28); 
-                                gotoxy(25,6); cout << "SELECCIONE EXTRA PARA " << productos[prodSel-1].getNombre();
-                                
-                                int yExtra = 8;
-                                for(int e=0; e<3; e++){
-                                    gotoxy(20,yExtra++); 
-                                    cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
-                                }
+						for(int c=0; c<cantidad; c++){
+						    PedidoPersonalizado pp(productos[prodSel-1]);
+						    
+						    char agregarExtra = 'n';
+						    gotoxy(20,25); cout << "Desea agregar algun extra? (s/n): ";
+						    cin >> agregarExtra; cin.ignore();
+						
+						    if(agregarExtra == 's' || agregarExtra == 'S'){
+						        bool agregarMas = true;
+						        while(agregarMas){
+						            system("cls");
+						            dibujarCuadro(2,1,95,28); 
+						            gotoxy(25,6); cout << "SELECCIONE EXTRA PARA " << productos[prodSel-1].getNombre();
+						            
+						            int yExtra = 8;
+						            for(int e=0; e<3; e++){
+						                gotoxy(20,yExtra++); 
+						                cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
+						            }
+						
+						            gotoxy(20,12); cout << "Seleccione extra (0 para ninguno): ";
+						            int selExtra; cin >> selExtra; cin.ignore();
+						
+						            if(selExtra == 0){
+						                agregarMas = false;
+						            } else {
+						                pp.agregarOpcion(extras[selExtra-1]);
+						                gotoxy(20,14); cout << "Desea agregar otro extra? (s/n): ";
+						                char resp; cin >> resp; cin.ignore();
+						                if(resp != 's' && resp != 'S') agregarMas = false;
+						            }
+						        }
+						    }
+						    pedido.agregarDetalle(pp);
+						}
 
-                                gotoxy(20,12); cout << "Seleccione extra (0 para ninguno): ";
-                                int selExtra; cin >> selExtra; cin.ignore();
-
-                                if(selExtra == 0){
-                                    agregarMas = false;
-                                } else {
-                                    pp.agregarOpcion(extras[selExtra-1]);
-                                    gotoxy(20,14); cout << "Desea agregar otro extra? (s/n): ";
-                                    char resp; cin >> resp; cin.ignore();
-                                    if(resp != 's' && resp != 'S') agregarMas = false;
-                                }
-                            }
-
-                            pedido.agregarDetalle(pp);
-                        }
 
                         gotoxy(20,22); cout << "Desea seguir pidiendo? (s/n): ";
                         cin >> seguir; cin.ignore();

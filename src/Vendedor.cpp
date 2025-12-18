@@ -35,20 +35,24 @@ void Vendedor::emitirRecibo(Pedido &pedido, Cliente &cliente, int metodoPago, fl
     cout << "DETALLE DEL PEDIDO";
 
     float total = pedido.calcularTotal();
+    float vuelto = pagoIngresado - total; // declarar fuera de if
     int yTotales = 15;
 
     if (metodoPago == 1) { // Efectivo
-        float vuelto = pagoIngresado - total;
         gotoxy(10, yTotales); cout << "Metodo de pago: Efectivo";
         gotoxy(10, yTotales+1); cout << "Monto entregado: S/ " << pagoIngresado;
         gotoxy(10, yTotales+2); cout << "Vuelto: S/ " << vuelto;
     } else if (metodoPago == 2) { // Tarjeta
         float descuento = total * 0.01;
         float totalConDescuento = total - descuento;
+        vuelto = pagoIngresado - totalConDescuento; // recalcular vuelto
         gotoxy(10, yTotales); cout << "Metodo de pago: Tarjeta";
         gotoxy(10, yTotales+1); cout << "Monto ingresado: S/ " << pagoIngresado;
         gotoxy(10, yTotales+2); cout << "Descuento aplicado (1%): S/ " << descuento;
         gotoxy(10, yTotales+3); cout << "Total cobrado: S/ " << totalConDescuento;
+        gotoxy(10, yTotales+4); cout << "-----------------------------";
+        gotoxy(10, yTotales+5); cout << "Pago recibido: S/ " << pagoIngresado;
+        gotoxy(10, yTotales+6); cout << "Vuelto:        S/ " << vuelto;
     }
 
     gotoxy(centrar(5,75,"Gracias por su compra!"), 26);

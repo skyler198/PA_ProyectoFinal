@@ -19,6 +19,7 @@ public:
 
     void emitirRecibo(Pedido &pedido, Cliente &cliente, int metodoPago, float pagoIngresado);
     void getRol();
+    
 };
 
 #endif
