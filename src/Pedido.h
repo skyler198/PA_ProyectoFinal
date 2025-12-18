@@ -13,7 +13,7 @@ private:
     string fecha;
     float totalPago;
     float descuento;
-    PedidoPersonalizado detalles[10];
+    PedidoPersonalizado detalles[50];
     int cantidad;
 
 public:
