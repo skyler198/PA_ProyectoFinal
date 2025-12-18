@@ -1,5 +1,6 @@
 //Pedido.cpp
 #include "Pedido.h"
+#include "funcionesDiseno.h"
 #include <iostream>
 using namespace std;
 
@@ -24,16 +25,23 @@ float Pedido::calcularTotal(){
     return totalPago;
 }
 
-void Pedido::mostrarPedido(){
-    cout << "\n----- TU PEDIDO ACTUAL ES: -----\n";
-    cout << "Pedido #: " << idPedido << endl;
-    cout << "Fecha: " << fecha << endl;
-
-    for (int i = 0; i < cantidad; i++)
-        detalles[i].mostrarDetalle();
-
-    cout << "Descuento: S/ " << descuento << endl;
-    cout << "TOTAL A PAGAR: S/ " << calcularTotal() << endl;
+void Pedido::mostrarPedidoEnCuadro(int yInicio, int col){
+	int y=yInicio;
+	
+	for(int i=0; i<cantidad; i++){
+		detalles[i].mostrarDetalleEnCuadro(col, y);
+		y += detalles[i].getFilasQueOcupa();
+		y++; //espacio extra entre productos
+	}
+	
+	//totales
+	
+	gotoxy(col, y);
+	cout<<"TOTAL: S/ "<<calcularTotal();
+	if(descuento>0){
+		gotoxy(col, y+1);
+		cout<<"Descuento aplicado: S/ "<<descuento;
+	}
 }
 
 int Pedido::getIdPedido(){
