@@ -9,6 +9,9 @@ class Cliente: public Persona{
 	public:
 		Cliente();
 		Cliente(string nombre, string dni, int edad, int id, string codigo);
+		
+		void agregarCliente(Cliente registroClientes[], int &totalClientes);
+		void mostrarCliente(int y);
 };
 
 #endif
