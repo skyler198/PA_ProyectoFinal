@@ -11,7 +11,7 @@ class Vendedor : public Persona {
 		float sueldo;
 	public:
     	Vendedor();
-    	Vendedor(string nombre, string dni, int edad,string usuario, string contrasena);
+    	Vendedor(string nombre, string dni, int edad,string usuario, string contrasena, float sueldo);
 		void emitirFactura();
 		void recepcionarPedido();
 		void getRol();
