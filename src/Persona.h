@@ -1,18 +1,22 @@
 #ifndef PERSONA_H
 #define PERSONA_H
 
-#include<string>
+#include <string>
 using namespace std;
 
-class Persona{
-	protected:
-		string nombre;
-		string dni;
-		int edad;
-	public:
-		Persona();
-		Persona(string nombre, string dni, int edad);
-		void mostrarPersona();
+class Persona {
+protected:
+    string nombre;
+    string dni;
+    int edad;
+
+public:
+    Persona();
+    Persona(string nombre, string dni, int edad);
+
+    void mostrarPersona();
+    string getDNI();
+
 };
 
 #endif
