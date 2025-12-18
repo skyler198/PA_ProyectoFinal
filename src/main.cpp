@@ -7,8 +7,23 @@
 #include "PedidoPersonalizado.h"
 #include "Vendedor.h"
 #include "funcionesDiseno.h"
-
+#include <fstream> 
 using namespace std;
+
+// Función para guardar clientes en archivo
+void guardarClientesArchivo(Cliente registroClientes[], int totalClientes) {
+    ofstream archivo("clientes.txt");
+    if(!archivo){
+        cout << "No se pudo abrir el archivo para guardar clientes.\n";
+        return;
+    }
+
+    for(int i = 0; i < totalClientes; i++){
+        registroClientes[i].guardarEnArchivo(archivo);
+    }
+
+    archivo.close();
+}
 
 int main() {
     Cliente registroClientes[50];
@@ -70,6 +85,11 @@ int main() {
                         system("cls");
                         dibujarCuadro(2,1,95,28); 
                         registroClientes[totalClientes].agregarCliente(registroClientes, totalClientes);
+
+                        // Guardar automáticamente
+                        guardarClientesArchivo(registroClientes, totalClientes);
+
+                        gotoxy(20,22); system("pause");
                     }
                 }
                 else if(opClientes == 2){
@@ -86,9 +106,9 @@ int main() {
                         registroClientes[i].mostrarCliente(y);
                         y += 6;
                     }
-                    gotoxy(20,18); system("pause");
+                    gotoxy(20,22); system("pause");
                 }
-                break;
+                break; // <-- CORREGIDO: cerrar correctamente el case 1
             }
 
             case 2: { // Menu Pedidos
@@ -143,42 +163,40 @@ int main() {
                         gotoxy(20,15); cout << "Cantidad: ";
                         int cantidad; cin >> cantidad; cin.ignore();
 
-						for(int c=0; c<cantidad; c++){
-						    PedidoPersonalizado pp(productos[prodSel-1]);
-						    
-						    bool agregarMas = true;
-						    while(agregarMas){
-						        system("cls");
-						        dibujarCuadro(2,1,95,28); 
-						        gotoxy(25,6); cout << "SELECCIONE EXTRA PARA " << productos[prodSel-1].getNombre();
-						        
-						        int yExtra = 8;
-						        for(int e=0; e<3; e++){
-						            gotoxy(20,yExtra++); 
-						            cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
-						        }
-						
-						        gotoxy(20,12); cout << "Seleccione extra (0 para ninguno): ";
-						        int selExtra; cin >> selExtra; cin.ignore();
-						
-						        if(selExtra == 0){
-						            agregarMas = false; // sale del ciclo de extras
-						        } else {
-						            pp.agregarOpcion(extras[selExtra-1]);
-						            gotoxy(20,14); cout << "Desea agregar otro extra? (s/n): ";
-						            char resp; cin >> resp; cin.ignore();
-						            if(resp != 's' && resp != 'S') agregarMas = false;
-						        }
-						    }
-						
-						    pedido.agregarDetalle(pp);
-						}
+                        for(int c=0; c<cantidad; c++){
+                            PedidoPersonalizado pp(productos[prodSel-1]);
+                            bool agregarMas = true;
+                            while(agregarMas){
+                                system("cls");
+                                dibujarCuadro(2,1,95,28); 
+                                gotoxy(25,6); cout << "SELECCIONE EXTRA PARA " << productos[prodSel-1].getNombre();
+                                
+                                int yExtra = 8;
+                                for(int e=0; e<3; e++){
+                                    gotoxy(20,yExtra++); 
+                                    cout << e+1 << ". " << extras[e].getNombre() << " | S/ " << extras[e].getPrecioExtra();
+                                }
+
+                                gotoxy(20,12); cout << "Seleccione extra (0 para ninguno): ";
+                                int selExtra; cin >> selExtra; cin.ignore();
+
+                                if(selExtra == 0){
+                                    agregarMas = false;
+                                } else {
+                                    pp.agregarOpcion(extras[selExtra-1]);
+                                    gotoxy(20,14); cout << "Desea agregar otro extra? (s/n): ";
+                                    char resp; cin >> resp; cin.ignore();
+                                    if(resp != 's' && resp != 'S') agregarMas = false;
+                                }
+                            }
+
+                            pedido.agregarDetalle(pp);
+                        }
 
                         gotoxy(20,22); cout << "Desea seguir pidiendo? (s/n): ";
                         cin >> seguir; cin.ignore();
                     }
 
-                    // Metodo de pago
                     system("cls");
                     dibujarCuadro(2,1,95,28); 
                     gotoxy(25,6); cout << "METODO DE PAGO";
@@ -197,7 +215,6 @@ int main() {
                         cin >> pagoIngresado; cin.ignore();
                     }
 
-                    // Emitir factura
                     system("cls");
                     dibujarCuadro(2,1,95,28); 
                     gotoxy(30,4); cout << "FACTURA";
