@@ -9,6 +9,7 @@ Vendedor::Vendedor(string nombre, string dni, int edad, string usuario, string c
     : Persona(nombre, dni, edad) {
     this->usuario = usuario;
     this->contrasena = contrasena;
+    this->sueldo = sueldo;
 }
 
 void Vendedor::emitirFactura() {
@@ -16,9 +17,9 @@ void Vendedor::emitirFactura() {
 }
 
 void Vendedor::recepcionarPedido(){
-	cout<<"recepcionar pedido"<<endl;
+	cout<<"Pedido recepcionado por el vendedor"<<endl;
 }
 
 void Vendedor::getRol(){
-	cout<<"rol del cliente"<<endl;
+	cout<<"rol: Vendedor"<<endl;
 }
