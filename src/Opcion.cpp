@@ -4,9 +4,9 @@
 Opcion::Opcion(){
 }
 
-Opcion::Opcion(string n, float Pe){
-    nombre = n;
-    precioExtra = Pe;
+Opcion::Opcion(string nombre, float precioExtra){
+    this-> nombre = nombre;
+    this-> precioExtra = precioExtra;
 }
 
 string Opcion::getNombre() {
