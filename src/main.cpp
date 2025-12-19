@@ -116,7 +116,7 @@ int main() {
 
                 if(opClientes == 1){
                     char conf = 'n';
-                    gotoxy(15,16); cout << "¿Desea registrar un cliente? (s/n): ";
+                    gotoxy(15,16); cout << "7Desea registrar un cliente? (s/n): ";
                     cin >> conf; cin.ignore();
 
                     if(conf == 's' || conf == 'S') {

@@ -56,3 +56,10 @@ void Cliente::mostrarCliente(int y){
     gotoxy(col, y+4);   cout << "Correo: " << correo;
 }
 
+void Cliente::guardarEnArchivo(ofstream& archivo){
+    archivo << "Nombre: " << nombre << endl;
+    archivo << "DNI: " << dni << endl;
+    archivo << "Edad: " << edad << endl;
+    archivo << "ID: " << id << endl;
+    archivo << "Correo: " << correo << endl;
+}
